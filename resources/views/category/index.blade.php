@@ -7,7 +7,8 @@
                 <div class="row">
                     <h5 class="mt-1">Category List Page</h5>
                     <div class="col-12">
-                       <a href="{{ route('category.create') }}"> <i class="fa-duotone fa-circle-plus">Add New Category</i></a>
+                        <a href="{{ route('category.create') }}"> <i class="fa-duotone fa-circle-plus">Add New
+                                Category</i></a>
                         <div class="card">
                             <div class="card-header">
 
@@ -19,6 +20,7 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Name</th>
+                                            <th>Action</th>
                                             {{-- <th>Platform(s)</th>
                                             <th>Engine version</th>
                                             <th>CSS grade</th> --}}
@@ -29,6 +31,14 @@
                                             <tr>
                                                 <td>{{ $category->id }}</td>
                                                 <td>{{ $category->name }}</td>
+                                                <td>
+                                                    <a href="{{ route('category.edit', $category->id) }}">Edit</a>
+                                                    <form action="{{ route('category.delete', $category->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    </form>
+                                                </td>
                                                 {{-- <td>-</td>
                                                 <td>-</td>
                                                 <td>U</td> --}}

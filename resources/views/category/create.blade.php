@@ -5,35 +5,29 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <h5 class="mt-1">Category List Page</h5>
-                    <div class="col-12">
-                       <a href="{{ route('category.create') }}"> <i class="fa-duotone fa-circle-plus">Add New Category</i></a>
-                        <div class="card">
+                    <div class="col-md-12">
+                        <div class="card mt-2">
                             <div class="card-header">
-
+                                Create Category
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Name</th>
-                                            {{-- <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th> --}}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                    </tbody>
-                                </table>
+                                <form action="{{ route('category.store') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label class="control-label">Category Name</label>
+                                        <input type="text" name="name" class="form-control">
+                                    </div>
+                                    @error('name')
+                                        <p class="alert alert-danger">{{ $message }}</p>
+                                    @enderror
+                                    <div>
+                                        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+                                        <a href="{{ route('category.index') }}" class="btn btn-sm btn-danger">Cancle</a>
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    </section>
                 </div>
             </div>
         </div>

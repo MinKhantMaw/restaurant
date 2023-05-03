@@ -23,11 +23,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('category')->controller(CategoryController::class)->group(function() {
+Route::prefix('category/')->controller(CategoryController::class)->group(function() {
     Route::get('', 'index')->name('category.index');
     Route::get('create', 'create')->name('category.create');
     Route::post('store', 'store')->name('category.store');
-    Route::get('edit', 'edit')->name('category.edit');
-    Route::put('update', 'update')->name('category.update');
-    Route::delete('delete', 'delete')->name('category.delete');
+    Route::get('edit/{id}', 'edit')->name('category.edit');
+    Route::put('update/{id}', 'update')->name('category.update');
+    Route::delete('delete/{id}', 'delete')->name('category.delete');
 });
