@@ -16,18 +16,19 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
+                                <table id="category" class="table table-bordered table-hover">
                                     <thead>
                                         <tr class="text-center">
-                                            <th>No.</th>
+                                            {{-- <th>No.</th> --}}
                                             <th>Name</th>
                                             <th>Action</th>
+                                            {{-- <th>Action</th> --}}
                                             {{-- <th>Platform(s)</th>
                                             <th>Engine version</th>
                                             <th>CSS grade</th> --}}
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    {{-- <tbody>
                                         @php
                                             $i = 1;
                                         @endphp
@@ -37,7 +38,8 @@
                                                 <td>{{ $category->name }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-outline-warning mr-2">Edit</a>
+                                                        <a href="{{ route('category.edit', $category->id) }}"
+                                                            class="btn btn-sm btn-outline-warning mr-2">Edit</a>
                                                         <form action="{{ route('category.delete', $category->id) }}"
                                                             method="POST">
                                                             @csrf
@@ -47,12 +49,9 @@
                                                         </form>
                                                     </div>
                                                 </td>
-                                                {{-- <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td> --}}
                                             </tr>
                                         @endforeach
-                                    </tbody>
+                                    </tbody> --}}
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -64,4 +63,76 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            var table = $('#category').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: '{{ route('getDatatable') }}',
+                columns: [
+                   
+
+                    {
+                        data: 'name',
+                        name: 'name',
+                        class: 'text-center',
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center',
+                    }
+
+                ],
+                // order: [
+                //     [
+                //         0, 'desc',
+                //     ]
+                // ],
+                // columnDefs: [
+                //     {
+                //         target: 0,
+                //         visible: false,
+                //     },
+                //     {
+                //         target: 0,
+                //         class: "control",
+                //     },
+                //     {
+                //         target: "no-sort",
+                //         orderable: false,
+                //     },
+                //     {
+                //         target: "no-search",
+                //         searchable: false,
+                //     },
+                // ],
+
+            });
+
+            $(document).on('click', '.delete-btn', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Are you sure, you want to delete?',
+                    showCancelButton: true,
+                    confirmButtonText: `Confirm`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/category/' + id,
+                            type: 'DELETE',
+                            success: function() {
+                                table.ajax.reload();
+                            }
+                        });
+                    }
+                })
+            });
+        });
+    </script>
 @endsection

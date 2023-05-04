@@ -33,7 +33,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="@yield ('dish') nav-link">
+                            <a href="{{ route('dish.index') }}" class="@yield ('dish') nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dished</p>
                             </a>
