@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('category', 'active')
 @section('title', 'Category')
 @section('content')
     <div class="content-wrapper">
@@ -17,7 +18,7 @@
                             <div class="card-body">
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>No.</th>
                                             <th>Name</th>
                                             <th>Action</th>
@@ -27,17 +28,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $i = 1;
+                                        @endphp
                                         @foreach ($categories as $category)
-                                            <tr>
-                                                <td>{{ $category->id }}</td>
+                                            <tr class="text-center">
+                                                <td>{{ $i++ }}</td>
                                                 <td>{{ $category->name }}</td>
                                                 <td>
-                                                    <a href="{{ route('category.edit', $category->id) }}">Edit</a>
-                                                    <form action="{{ route('category.delete', $category->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                    </form>
+                                                    <div class="d-flex justify-content-center">
+                                                        <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-outline-warning mr-2">Edit</a>
+                                                        <form action="{{ route('category.delete', $category->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-outline-danger">Delete</button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                                 {{-- <td>-</td>
                                                 <td>-</td>

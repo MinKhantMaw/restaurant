@@ -27,19 +27,19 @@
                 <li class="nav-item menu-open">
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link active">
+                            <a href="{{ route('category.index') }}" class="@yield ('category') nav-link ">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Category</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="#" class="@yield ('dish') nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dished</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="@yield ('order') nav-link ">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Order</p>
                             </a>

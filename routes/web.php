@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -30,4 +30,9 @@ Route::prefix('category/')->controller(CategoryController::class)->group(functio
     Route::get('edit/{id}', 'edit')->name('category.edit');
     Route::put('update/{id}', 'update')->name('category.update');
     Route::delete('delete/{id}', 'delete')->name('category.delete');
+});
+
+
+Route::prefix('dishes')->controller(DishController::class)->group(function () {
+
 });
