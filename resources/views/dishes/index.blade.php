@@ -16,12 +16,10 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="category" class="table table-bordered table-hover">
+                                <table id="dish" class="table table-bordered table-hover">
                                     <thead>
                                         <tr class="text-center">
                                             <th>Name</th>
-                                            {{-- <th>Image</th> --}}
-                                            {{-- <th>Action</th> --}}
                                         </tr>
                                     </thead>
                                 </table>

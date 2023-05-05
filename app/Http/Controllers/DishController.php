@@ -35,6 +35,7 @@ class DishController extends Controller
             'name' => 'required',
             'image' => 'required',
         ]);
+        // dd($request);
 
         if ($validator->fails()) {
             return back()
@@ -42,17 +43,22 @@ class DishController extends Controller
                 ->withInput();
         }
 
-        $image_name = '';
-        if ($request->has('image')) {
-            $profile_image_file = $request->file('image');
-            $profile_image_name = uniqid() . '.' . $profile_image_file->getClientOriginalName();
-            Storage::disk('public')->put('dishes/' . $profile_image_name, file_get_contents($profile_image_file));
-        }
+        $img_name = "";
+        if ($request->hasFile('image')) {
+            $image_file = $request->file('image');
+            $img_name = time() . '-' . uniqid() . '-' . $image_file->getClientOriginalName();
 
+
+            Storage::disk('public')->put(
+                'dishes/' . $img_name,
+                file_get_contents($image_file)
+            );
+        }
+// dd($img_name);
         Dish::create([
             'name' => $request->name,
-            'image' => $image_name,
-            'url' => asset('/storage/dishes/' . $image_name),
+            'image' => $img_name,
+            'url' => asset('/storage/dishes/' . $img_name),
             'category_id' => $request->category_id,
         ]);
 
