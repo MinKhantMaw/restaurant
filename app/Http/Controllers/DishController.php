@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\DishStoreRequest;
+use App\Http\Requests\DishUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,17 +61,9 @@ class DishController extends Controller
         return view('dishes.edit', compact('dish', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(DishUpdateRequest $request, $id)
     {
         $dish = Dish::find($id);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
         $img_name = "";
         if ($request->hasFile('image')) {
             $image_file = $request->file('image');

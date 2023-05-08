@@ -11,7 +11,7 @@
                                 Create Category
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('category.store') }}" method="POST">
+                                <form action="{{ route('category.store') }}" method="POST" id="create-form">
                                     @csrf
                                     <div class="form-group">
                                         <label class="control-label">Category Name</label>
@@ -33,4 +33,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+{!! JsValidator::formRequest('App\Http\Requests\CategoryStoreRequest', '#create-form') !!}
 @endsection

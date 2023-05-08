@@ -11,7 +11,7 @@
                                 Create Dish
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('dish.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('dish.store') }}" method="POST" enctype="multipart/form-data" id="create-form">
                                     @csrf
                                     <div class="form-group">
                                         <label class="control-label">Dish Name</label>
@@ -49,4 +49,9 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+{!! JsValidator::formRequest('App\Http\Requests\DishStoreRequest', '#create-form') !!}
+
 @endsection

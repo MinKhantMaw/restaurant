@@ -11,7 +11,7 @@
                                 Create Category
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('category.update',$category->id) }}" method="POST">
+                                <form action="{{ route('category.update',$category->id) }}" method="POST" id="update-form">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
@@ -22,7 +22,7 @@
                                         <p class="alert alert-danger">{{ $message }}</p>
                                     @enderror
                                     <div>
-                                        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                         <a href="{{ route('category.index') }}" class="btn btn-sm btn-danger">Cancle</a>
                                     </div>
                                 </form>
@@ -33,4 +33,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+{!! JsValidator::formRequest('App\Http\Requests\categoryUpdateRequest', '#update-form') !!}
+
 @endsection

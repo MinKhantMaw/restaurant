@@ -8,8 +8,8 @@
                 <div class="row">
                     <h5 class="mt-1">Category List Page</h5>
                     <div class="col-12">
-                        <a href="{{ route('category.create') }}"> <i class="fa-duotone fa-circle-plus">Add New
-                                Category</i></a>
+                        <a href="{{ route('category.create') }}" class="btn btn-primary my-2"><i class="fas fa-plus-circle"></i>
+                            Create New Category</a>
                         <div class="card">
                             <div class="card-header">
 
@@ -74,7 +74,7 @@
                 responsive: true,
                 ajax: '{{ route('getDatatable') }}',
                 columns: [
-                   
+
 
                     {
                         data: 'name',

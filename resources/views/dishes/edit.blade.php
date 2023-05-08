@@ -11,7 +11,7 @@
                                 Edit Dish
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('dish.update', $dish->id) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('dish.update', $dish->id) }}" method="POST" enctype="multipart/form-data" id="update-form">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group">
@@ -38,7 +38,7 @@
                                         </select>
                                     </div>
                                     <div>
-                                        <button type="submit" class="btn btn-sm btn-primary">Create</button>
+                                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                         <button type="reset" onclick="history.back()"
                                             class="btn btn-sm btn-danger back-btn">Cancel</button>
                                     </div>
@@ -51,3 +51,9 @@
         </div>
     </div>
 @endsection
+
+@section('scripts')
+{!! JsValidator::formRequest('App\Http\Requests\DishUpdateRequest', '#update-form') !!}
+
+@endsection
+
