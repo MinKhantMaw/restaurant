@@ -45,10 +45,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('logout') }}" class="nav-link">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                <p>Logout</p>
-                            </a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    style="    margin-left: 20px;
+                                background-color: black;
+                                color: white;
+                                border: none;">
+                                    <i class="fa-solid fa-arrow-right-from-bracket">Logout</i>
+                                </button>
+                            </form>
+
                         </li>
                     </ul>
                 </li>

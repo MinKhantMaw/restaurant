@@ -21,6 +21,7 @@
                                         <tr class="text-center">
                                             <th>No.</th>
                                             <th>Name</th>
+                                            <th>Category Name</th>
                                             <th>Image</th>
                                             <th>Action</th>
                                         </tr>
@@ -33,6 +34,7 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $dish->name }}</td>
+                                                <td>{{ $dish->category->name }}</td>
                                                 <td>
                                                     <img alt="Product Logo" class="rounded text-center"
                                                         style="height: 100px;"

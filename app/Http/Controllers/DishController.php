@@ -15,7 +15,7 @@ class DishController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::get();
+        $dishes = Dish::with('category')->get();
         return view('dishes.index', compact('dishes'));
     }
 
