@@ -6,10 +6,10 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <h5 class="mt-1">Dishes List Page</h5>
+                    <h5 class="mt-1 mx-3">Dishes List Page</h5>
                     <div class="col-12">
-                        <a href="{{ route('dish.create') }}"> <i class="fa-duotone fa-circle-plus">Add New
-                                Dish</i></a>
+                        <a href="{{ route('dish.create') }}" class="btn btn-primary my-2"><i class="fas fa-plus-circle"></i>
+                            Create New Dish</a>
                         <div class="card">
                             <div class="card-header">
 
@@ -19,9 +19,42 @@
                                 <table id="dish" class="table table-bordered table-hover">
                                     <thead>
                                         <tr class="text-center">
+                                            <th>No.</th>
                                             <th>Name</th>
+                                            <th>Image</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($dishes as $dish)
+                                            <tr>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{ $dish->name }}</td>
+                                                <td>
+                                                    <img alt="Product Logo" class="rounded text-center"
+                                                        style="height: 100px;"
+                                                        src="{{ asset('storage/dishes/' . $dish->image) }}">
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center text-white">
+                                                        <a href="{{ route('dish.edit', $dish->id) }}" class="btn btn-outline-warning btn-sm text-dark mt-2 mr-2 "><i class="fas fa-edit "></i> Edit
+                                                           </a>
+                                                        <form action="{{ route('dish.destroy', $dish->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-outline-danger btn-sm text-dark mt-2"><i
+                                                                    class="fas fa-trash-alt"></i> Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -38,89 +71,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            var table = $('#dish').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
-                ajax: '{{ route('getDatatableDish') }}',
-                columns: [
-
-
-                    {
-                        data: 'name',
-                        name: 'name',
-                        class: 'text-center',
-                    },
-                    // {
-                    //     data: 'action',
-                    //     name: 'action',
-                    //     class: 'text-center',
-                    // }
-
-                ],
-                // order: [
-                //     [
-                //         0, 'desc',
-                //     ]
-                // ],
-                // columnDefs: [
-                //     {
-                //         target: 0,
-                //         visible: false,
-                //     },
-                //     {
-                //         target: 0,
-                //         class: "control",
-                //     },
-                //     {
-                //         target: "no-sort",
-                //         orderable: false,
-                //     },
-                //     {
-                //         target: "no-search",
-                //         searchable: false,
-                //     },
-                // ],
-
-            });
-
-            // $(document).on('click', '.delete-btn', function(e) {
-            //     e.preventDefault();
-            //     var id = $(this).data('id');
-            //     Swal.fire({
-            //         title: 'Are you sure, you want to delete?',
-            //         showCancelButton: true,
-            //         confirmButtonText: `Confirm`,
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             $.ajax({
-            //                 url: '/category/' + id,
-            //                 type: 'DELETE',
-            //                 success: function() { // $(document).on('click', '.delete-btn', function(e) {
-            //     e.preventDefault();
-            //     var id = $(this).data('id');
-            //     Swal.fire({
-            //         title: 'Are you sure, you want to delete?',
-            //         showCancelButton: true,
-            //         confirmButtonText: `Confirm`,
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             $.ajax({
-            //                 url: '/category/' + id,
-            //                 type: 'DELETE',
-            //                 success: function() {
-            //                     table.ajax.reload();
-            //                 }
-            //             });
-            //         }
-            //     })
-            // });
-            //                     table.ajax.reload();
-            //                 }
-            //             });
-            //         }
-            //     })
-            // });
+            $('#dish').DataTable();
         });
     </script>
 @endsection

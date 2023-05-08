@@ -14,13 +14,14 @@ class DishController extends Controller
 {
     public function index()
     {
-        return view('dishes.index');
+        $dishes = Dish::get();
+        return view('dishes.index', compact('dishes'));
     }
 
     public function ssd()
     {
-        $dishes = Dish::query();
-        return Datatables::of($dishes)->make(true);
+        // $dishes = Dish::query();
+        // return Datatables::of($dishes)->make(true);
     }
 
     public function create()
@@ -29,20 +30,8 @@ class DishController extends Controller
         return view('dishes.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(DishStoreRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'image' => 'required',
-        ]);
-        // dd($request);
-
-        if ($validator->fails()) {
-            return back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $img_name = "";
         if ($request->hasFile('image')) {
             $image_file = $request->file('image');
@@ -54,7 +43,6 @@ class DishController extends Controller
                 file_get_contents($image_file)
             );
         }
-// dd($img_name);
         Dish::create([
             'name' => $request->name,
             'image' => $img_name,
@@ -62,6 +50,51 @@ class DishController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect()->route('dish.index')->with(['created' => 'Dished Created Successfully']);
+        return redirect()->route('dish.index')->with(['create' => 'Dished Created Successfully']);
+    }
+
+    public function edit($id)
+    {
+        $dish = Dish::find($id);
+        $categories = Category::get();
+        return view('dishes.edit', compact('dish', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $dish = Dish::find($id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $img_name = "";
+        if ($request->hasFile('image')) {
+            $image_file = $request->file('image');
+            $img_name = time() . '-' . uniqid() . '-' . $image_file->getClientOriginalName();
+
+            Storage::disk('public')->put(
+                'dishes/' . $img_name,
+                file_get_contents($image_file)
+            );
+            Storage::disk('public')->delete("dishes/$dish->image");
+        }
+
+        $dish->name = $request->name;
+        $dish->image = $request->image ?  $img_name : $dish->image;
+        $dish->category_id = $request->category_id;
+        $dish->save();
+        return redirect()->route('dish.index')->with(['update' => 'Dish Updated Successfully']);
+    }
+
+    public function destroy($id)
+    {
+        $dish = Dish::find($id);
+        Storage::disk('public')->delete("dishes/$dish->image");
+        $dish->delete();
+        return redirect()->route('dish.index');
     }
 }
