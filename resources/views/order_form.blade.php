@@ -71,23 +71,26 @@
                                             @foreach ($dishes as $dish)
                                                 <div class="col-sm-3">
                                                     <div class="card" style="width: 18rem;">
-                                                        <img  src="{{ asset('storage/dishes/' . $dish->image) }}" class="card-img-top" alt="..." style="height: 200px;">
+                                                        <img src="{{ asset('storage/dishes/' . $dish->image) }}"
+                                                            class="card-img-top" alt="..." style="height: 200px;">
                                                         <div class="card-body">
-                                                          <h5 class="card-title">Dish Name : <span class="text-bold">{{ $dish->name }}</span></h5>
-                                                            <input type="text" class="form-control my-1"  name="{{ $dish->id }}">
+                                                            <h5 class="card-title">Dish Name : <span
+                                                                    class="text-bold">{{ $dish->name }}</span></h5>
+                                                            <input type="text" class="form-control my-1"
+                                                                name="{{ $dish->id }}">
 
                                                         </div>
-                                                      </div>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                         </div>
 
                                         <div class="form-group">
                                             <select name="table" id="">
-                                                {{-- @foreach ($tables as $table)
+                                                @foreach ($tables as $table)
                                                     <option class="form-control" value="{{ $table->id }}">
-                                                        {{ $table->number }}</option>
-                                                @endforeach --}}
+                                                        {{ $table->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <input type="submit" class="btn btn-success" value="Submit">
@@ -145,5 +148,53 @@
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(function($) {
+
+
+        @if (session('create'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                title: 'Successfully Created',
+                text: "{{ session('create') }}",
+                icon: 'success'
+            })
+        @elseif (session('update'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                title: 'Successfully Updated',
+                text: "{{ session('update') }}",
+                icon: 'success'
+            })
+        @endif
+
+      
+    })
+</script>
 
 </html>

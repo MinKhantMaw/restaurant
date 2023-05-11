@@ -39,7 +39,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="@yield ('order') nav-link ">
+                            <a href="{{ route('order-list') }}" class="@yield ('order') nav-link ">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Order</p>
                             </a>
