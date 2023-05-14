@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::resource('category', CategoryController::class);
 Route::get('category/datatables/ssd', [CategoryController::class,'ssd'])->name('getDatatable');
 
 Route::resource('dish', DishController::class);
+Route::resource('tables', TableController::class);

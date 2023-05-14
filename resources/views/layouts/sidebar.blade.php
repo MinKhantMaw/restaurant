@@ -14,7 +14,7 @@
                 <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="#" class="d-block">{{ Auth::user()->name ?? '-'}}</a>
             </div>
         </div>
 
@@ -45,12 +45,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('tables.index') }}" class="@yield ('table') nav-link ">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Table</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit"
+                                <button type="submit" class="btn btn-sm mt-2"
                                     style="    margin-left: 20px;
-                                background-color: black;
-                                color: white;
+                                background-color:rgb(52,58,64);
+                                color: rgb(157,150,139);
                                 border: none;">
                                     <i class="fa-solid fa-arrow-right-from-bracket">Logout</i>
                                 </button>
