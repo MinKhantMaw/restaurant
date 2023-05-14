@@ -20,4 +20,14 @@ class Dish extends Model
    {
        return $this->belongsTo(Category::class,'category_id', 'id');
    }
+
+   /**
+    * Get all of the orders for the Dish
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function orders()
+   {
+       return $this->hasMany(Order::class,'dish_id','id');
+   }
 }

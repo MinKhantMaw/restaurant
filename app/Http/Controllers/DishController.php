@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Dish;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Http\Requests\DishStoreRequest;
 use App\Http\Requests\DishUpdateRequest;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class DishController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::with('category')->get();
+        $dishes = Dish::with(['category','orders'])->get();
         return view('dishes.index', compact('dishes'));
     }
 

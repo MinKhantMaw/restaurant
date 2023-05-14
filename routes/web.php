@@ -12,6 +12,10 @@ Route::prefix('/')->controller(OrderController::class)->group(function() {
     Route::get('','index')->name('order-index');
     Route::post('order-submit','orderSubmit')->name('order-submit');
     Route::get('order-list','orderList')->name('order-list');
+    Route::get('order/{order}/approve', 'approve')->name('order-approve');
+    Route::get('order/{order}/cancel', 'cancel')->name('order-cancel');
+    Route::get('order/{order}/ready', 'ready')->name('order-ready');
+    Route::get('order/{order}/done', 'done')->name('order-done');
 });
 
 Route::resource('category', CategoryController::class);

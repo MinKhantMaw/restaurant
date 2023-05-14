@@ -23,17 +23,17 @@ class OrderController extends Controller
         foreach ($data as $key => $value) {
             if ($value > 1) {
                 for ($i = 0; $i < $value; $i++) {
-                   $this->saveOrder($orderId,$key,$request);
+                    $this->saveOrder($orderId, $key, $request);
                 }
             } else {
-                $this->saveOrder($orderId,$key,$request);
+                $this->saveOrder($orderId, $key, $request);
             }
         }
 
         return redirect()->route('order-index')->with(['create' => 'Order Created Successfully']);
     }
 
-    public function saveOrder($orderId,$dish_id,$request)
+    public function saveOrder($orderId, $dish_id, $request)
     {
         $order = new Order();
         $order->order_id = $orderId;
@@ -45,7 +45,39 @@ class OrderController extends Controller
 
     public function orderList()
     {
-       $orders = Order::with(['table','dishes'])->get();
-       return view('orders.index',compact('orders'));
+        $status=array_flip(config('res.order_status'));
+        $orders=Order::with('table','dishes')->whereIn('status',[1,2])->get();
+        return view('orders.index',compact('orders','status'));
+    }
+
+    public function approve(Order $order)
+    {
+        $order->status = config('res.order_status.processing');
+        $order->save();
+        return redirect()->route('order-list')->with(['create' => 'Order Approve ']);
+    }
+
+    public function cancel(Order $order)
+    {
+        $order->status = config('res.order_status.cancel');
+        $order->save();
+        return redirect()->route('order-list')->with(['create' => 'Order Reject ']);
+    }
+
+    public function ready(Order $order)
+    {
+        $order->status = config('res.order_status.ready');
+        $order->save();
+        return redirect()->route('order-list')->with(['create' => 'Order Approve ']);
+    }
+
+    // waiter panel order list
+
+    public function list()
+    {
+        $status=array_flip(config('res.order_status'));
+        $orders=Order::with('table','dishes')->whereIn('status',[4])->get();
+        return $orders;
+        return view('orders.index',compact('orders','status'));
     }
 }

@@ -23,6 +23,8 @@
                                             <th>Order ID</th>
                                             <th>Table Name</th>
                                             <th>Dish Name</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -41,20 +43,17 @@
                                                         style="height: 100px;"
                                                         src="{{ asset('storage/dishes/' . $order->dishes->image) }}">
                                                 </td>
-                                                {{-- <td>
-                                                    <div class="d-flex justify-content-center text-white">
-                                                        <a href="{{ route('dish.edit', $dish->id) }}" class="btn btn-outline-warning btn-sm text-dark mt-2 mr-2 "><i class="fas fa-edit "></i> Edit
-                                                           </a>
-                                                        <form action="{{ route('dish.destroy', $dish->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-outline-danger btn-sm text-dark mt-2"><i
-                                                                    class="fas fa-trash-alt"></i> Delete</button>
-                                                        </form>
-                                                    </div>
-                                                </td> --}}
+                                                <td>{{$status[$order->status] }}</td>
+                                                <td>
+                                                  <div class="col-12 col-md-md-6  d-flex justify-content-center">
+                                                    <a href="{{ route('order-approve', $order->id) }}"
+                                                        class="btn btn-sm btn-warning mr-1">Approve</a>
+                                                    <a href="{{ route('order-cancel', $order->id) }}"
+                                                        class="btn btn-sm btn-danger mr-1">Cancel</a>
+                                                    <a href="{{ route('order-ready', $order->id) }}"
+                                                        class="btn btn-sm btn-success">Ready</a>
+                                                  </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -74,7 +73,10 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('#order').DataTable();
+            $('#order').DataTable(
+
+            );
+
         });
     </script>
 @endsection
