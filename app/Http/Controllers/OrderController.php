@@ -13,7 +13,10 @@ class OrderController extends Controller
     {
         $dishes = Dish::get();
         $tables = Table::get();
-        return view('order_form', compact('dishes', 'tables'));
+
+        $status=array_flip(config('res.order_status'));
+        $orders=Order::with('table','dishes')->whereIn('status',[4])->get();
+        return view('order_form', compact('dishes', 'tables','orders','status'));
     }
 
     public function orderSubmit(Request $request)
@@ -71,13 +74,12 @@ class OrderController extends Controller
         return redirect()->route('order-list')->with(['create' => 'Order Approve ']);
     }
 
-    // waiter panel order list
-
-    public function list()
+    public function serve(Order $order)
     {
-        $status=array_flip(config('res.order_status'));
-        $orders=Order::with('table','dishes')->whereIn('status',[4])->get();
-        return $orders;
-        return view('orders.index',compact('orders','status'));
+        $order->status = config('res.order_status.done');
+        $order->save();
+        return redirect()->route('order-index')->with(['create' => 'Order Serve to customer ']);
     }
+
+
 }

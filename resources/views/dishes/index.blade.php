@@ -34,7 +34,7 @@
                                             <tr>
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $dish->name }}</td>
-                                                <td>{{ $dish->category->name }}</td>
+                                                <td>{{ $dish->category->name ?? '' }}</td>
                                                 <td>
                                                     <img alt="Product Logo" class="rounded text-center"
                                                         style="height: 100px;"

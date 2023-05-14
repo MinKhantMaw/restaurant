@@ -15,7 +15,7 @@ Route::prefix('/')->controller(OrderController::class)->group(function() {
     Route::get('order/{order}/approve', 'approve')->name('order-approve');
     Route::get('order/{order}/cancel', 'cancel')->name('order-cancel');
     Route::get('order/{order}/ready', 'ready')->name('order-ready');
-    Route::get('order/{order}/done', 'done')->name('order-done');
+    Route::post('order/{order}/done', 'serve')->name('order-done');
 });
 
 Route::resource('category', CategoryController::class);

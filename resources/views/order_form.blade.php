@@ -64,7 +64,7 @@
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
                                     aria-labelledby="custom-tabs-one-home-tab">
-                                    <form action="{{ route('order-submit') }}" method="post">
+                                    <form action="{{ route('order-submit') }}" method="POST">
                                         @csrf
                                         <div class="row">
 
@@ -103,7 +103,7 @@
                                             {{ session('serve') }}
                                         </div>
                                     @endif --}}
-                                    <table class="table table-bordered table-striped">
+                                    <table class="table table-bordered table-striped" id="order-list">
                                         <thead>
                                             <tr>
                                                 <th>Dish Name</th>
@@ -113,20 +113,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($orders as $order)
+                                              @foreach ($orders as $order)
                                                 <tr>
-                                                    <td>{{ $order->dish->name }}</td>
-                                                    <td>{{ $order->table_id }}</td>
+                                                    <td>{{ $order->dishes->name ?? '-' }}</td>
+                                                    <td>{{ $order->table->name ?? '-' }}</td>
                                                     <td>{{ $status[$order->status] }}</td>
                                                     <td>
                                                         <div>
-                                                            <a href="/order/{{ $order->id }}/serve"
-                                                                class="btn btn-warning">Serve</a>
+                                                           <form action="{{ route('order-done',$order->id) }}" method="POST">
+                                                            @csrf
+                                                                <button class="btn btn-sm btn-success">Serve</button>
+                                                           </form>
                                                         </div>
 
                                                     </td>
                                                 </tr>
-                                            @endforeach --}}
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -141,6 +143,8 @@
 </body>
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables -->
@@ -153,7 +157,7 @@
 
 <script>
     $(function($) {
-
+        $('#order-list').DataTable();
 
         @if (session('create'))
             const Toast = Swal.mixin({
@@ -193,7 +197,7 @@
             })
         @endif
 
-      
+
     })
 </script>
 
