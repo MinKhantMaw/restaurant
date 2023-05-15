@@ -17,11 +17,11 @@ class TableSeeder extends Seeder
     public function run()
     {
         $tables = [
-            ['name' => 'Burger Joint',],
-            ['name' => 'Pasta Place',],
-            ['name' => 'Sushi Spot',],
-            ['name' => 'Mexican Grill',],
-            ['name' => 'Pizza Parlor',],
+            ['name' => 'Table-1',],
+            ['name' => 'Table-2',],
+            ['name' => 'Table-3',],
+            ['name' => 'Table-4',],
+            ['name' => 'Table-5',],
         ];
 
         foreach ($tables as $restaurant) {

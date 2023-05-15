@@ -27,6 +27,7 @@ class DishStoreRequest extends FormRequest
             'name' => 'required',
             'category_id' => 'required',
             'image' => 'required',
+            'price' => 'required'
         ];
     }
 }

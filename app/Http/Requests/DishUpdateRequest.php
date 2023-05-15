@@ -26,6 +26,7 @@ class DishUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'category_id' => 'required',
+            'price' => 'required'
         ];
     }
 }

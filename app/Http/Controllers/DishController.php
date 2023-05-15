@@ -44,6 +44,7 @@ class DishController extends Controller
         }
         Dish::create([
             'name' => $request->name,
+            'price' => $request->price,
             'image' => $img_name,
             'url' => asset('/storage/dishes/' . $img_name),
             'category_id' => $request->category_id,
@@ -75,6 +76,7 @@ class DishController extends Controller
         }
 
         $dish->name = $request->name;
+        $dish->price = $request->price;
         $dish->image = $request->image ?  $img_name : $dish->image;
         $dish->category_id = $request->category_id;
         $dish->save();

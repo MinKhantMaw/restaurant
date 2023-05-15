@@ -23,6 +23,7 @@
                                             <th>Name</th>
                                             <th>Category Name</th>
                                             <th>Image</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -40,6 +41,7 @@
                                                         style="height: 100px;"
                                                         src="{{ asset('storage/dishes/' . $dish->image) }}">
                                                 </td>
+                                                <td>{{ $dish->price }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center text-white">
                                                         <a href="{{ route('dish.edit', $dish->id) }}" class="btn btn-outline-warning btn-sm text-dark mt-2 mr-2 "><i class="fas fa-edit "></i> Edit

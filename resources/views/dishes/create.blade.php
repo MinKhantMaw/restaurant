@@ -36,6 +36,15 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label">Price</label>
+                                        <input type="number" name="price" class="form-control">
+                                    </div>
+                                    @error('name')
+                                        <p class="alert alert-danger">{{ $message }}</p>
+                                    @enderror
+
                                     <div>
                                         <button type="submit" class="btn btn-sm btn-primary">Create</button>
                                         <button type="reset" onclick="history.back()"

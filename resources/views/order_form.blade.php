@@ -109,6 +109,7 @@
                                                 <th>Dish Name</th>
                                                 <th>Table Number</th>
                                                 <th>Status</th>
+                                                <th>Price</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -118,6 +119,7 @@
                                                     <td>{{ $order->dishes->name ?? '-' }}</td>
                                                     <td>{{ $order->table->name ?? '-' }}</td>
                                                     <td>{{ $status[$order->status] }}</td>
+                                                    <td>{{ $order->dishes->price }}</td>
                                                     <td>
                                                         <div>
                                                            <form action="{{ route('order-done',$order->id) }}" method="POST">

@@ -12,9 +12,7 @@
                             Create New Table</a>
                         <div class="card">
                             <div class="card-header">
-
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="table" class="table table-bordered table-hover">
                                     <thead>
@@ -50,9 +48,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
                     </section>
                 </div>
@@ -64,8 +60,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            var table = $('#table').DataTable({
-            });
+            var table = $('#table').DataTable({});
         });
     </script>
 @endsection
